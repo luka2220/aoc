@@ -16,7 +16,16 @@ fn main() -> io::Result<()> {
         parens = parens + &line?;
     }
 
-    for (_idx, item) in parens.char_indices() {
+    for (idx, item) in parens.char_indices() {
+        if count == -1 {
+            // The previous iteration would have set the count to -1. No need to increase idx position.
+            println!(
+                "Position of the char that caused santa to enter the basement: {}",
+                idx
+            );
+            break;
+        }
+
         match item {
             UP => count += 1,
             DOWN => count -= 1,
@@ -24,7 +33,7 @@ fn main() -> io::Result<()> {
         }
     }
 
-    println!("Santa needs to go to floor {count}");
+    // println!("Santa needs to go to floor {count}");
 
     Ok(())
 }
